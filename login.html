@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<input type="email" id="email" placeholder="Digite seu e-mail">
+<br><br>
+<input type="password" id="senha" placeholder="Digite sua senha">
+<br><br>
+<button onclick="login()">Entrar</button>
+
+<script>
+function login() {
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  // EXEMPLO DE SENHA ÚNICA (simples)
+  if (senha !== "123456") {
+    alert("Senha incorreta");
+    return;
+  }
+
+  // REGRAS DE REDIRECIONAMENTO
+  if (email === "andre@email.com") {
+    window.location.href = "https://link-do-andre.com";
+  } 
+  else if (email === "joao@email.com") {
+    window.location.href = "https://link-do-joao.com";
+  } 
+  else {
+    alert("E-mail não cadastrado");
+  }
+}
+</script>
+
+</body>
+</html>
