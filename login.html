@@ -19,18 +19,16 @@ function login() {
   const email = document.getElementById("email").value;
   const senha = document.getElementById("senha").value;
 
-  // EXEMPLO DE SENHA ÚNICA (simples)
   if (senha !== "123456") {
     alert("Senha incorreta");
     return;
   }
 
-  // REGRAS DE REDIRECIONAMENTO
   if (email === "andre@email.com") {
-    window.location.href = "https://link-do-andre.com";
+    window.location.href = "https://google.com";
   } 
   else if (email === "joao@email.com") {
-    window.location.href = "https://link-do-joao.com";
+    window.location.href = "https://youtube.com";
   } 
   else {
     alert("E-mail não cadastrado");
