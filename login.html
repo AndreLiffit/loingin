@@ -1,21 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIFFIT Treino Automático</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f4f4f4;padding:30px;max-width:900px;margin:auto}
+    .card{background:#fff;padding:24px;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    input,select,button{width:100%;padding:14px;margin:8px 0 16px;border:1px solid #ddd;border-radius:12px}
+    button{background:#111;color:#fff;font-weight:700;cursor:pointer}
+    pre{white-space:pre-wrap;background:#fafafa;border:1px solid #eee;padding:16px;border-radius:16px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>LIFFIT • Treino de Corrida</h1>
+    <p>Gera automaticamente um plano profissional de 4 semanas.</p>
+
+    <input id="nome" placeholder="Nome completo" />
+    <input id="objetivo" placeholder="Objetivo (5k, 10k, pace...)" />
+    <select id="dias">
+      <option value="3">3 dias</option>
+      <option value="4">4 dias</option>
+    </select>
+    <select id="nivel">
+      <option>Iniciante</option>
+      <option>Médio</option>
+      <option>Avançado</option>
+    </select>
+    <input id="pace" placeholder="Pace atual (ex: 5:30/km)" />
+
+    <button onclick="gerarTreino()">Gerar treino automático</button>
+
+    <h2>Plano gerado</h2>
+    <pre id="resultado">Preencha os dados e clique no botão.</pre>
+  </div>
+
 <script>
-function login() {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
+function gerarTreino(){
+  const nome = document.getElementById('nome').value || 'Aluno';
+  const objetivo = document.getElementById('objetivo').value || 'Melhorar performance';
+  const dias = parseInt(document.getElementById('dias').value, 10);
+  const nivel = document.getElementById('nivel').value;
+  const pace = document.getElementById('pace').value || 'não informado';
 
-  if (senha !== "123456") {
-    alert("Senha incorreta");
-    return;
+  const modelos = {
+    'Iniciante': [
+      '30min caminhada + trote | técnica: postura',
+      '35min corrida leve | técnica: respiração',
+      'Longão 5km leve',
+      'Mobilidade + core'
+    ],
+    'Médio': [
+      '6x400m forte | técnica: cadência',
+      '45min rodagem Z2',
+      'Longão 10km',
+      'Subidas 8x100m'
+    ],
+    'Avançado': [
+      '10x400m VO2',
+      'Limiar 6km no pace',
+      'Longão 15km progressivo',
+      'Sprint + pliometria'
+    ]
+  };
+
+  const diasSemana = ['SEG','QUA','SEX','DOM'];
+  const base = modelos[nivel];
+  const treinoDias = base.slice(0, dias);
+
+  let plano = `LIFFIT | Plano de 4 semanas\nAluno: ${nome}\nObjetivo: ${objetivo}\nNível: ${nivel}\nPace: ${pace}\n\n`;
+
+  for(let semana=1; semana<=4; semana++){
+    plano += `SEMANA ${semana}\n`;
+    treinoDias.forEach((t,i)=> plano += `${diasSemana[i]}: ${t}\n`);
+    plano += 'Progressão: +5% no volume\n\n';
   }
 
-  if (email === "andre@email.com") {
-    window.location.href = "https://seusite.vercel.app/?aluno=andre";
-  } 
-  else if (email === "joao@email.com") {
-    window.location.href = "https://seusite.vercel.app/?aluno=joao";
-  } 
-  else {
-    alert("E-mail não cadastrado");
-  }
+  document.getElementById('resultado').textContent = plano;
 }
 </script>
+</body>
+</html>
